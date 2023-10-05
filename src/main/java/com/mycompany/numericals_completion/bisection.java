@@ -557,6 +557,10 @@ public class bisection extends javax.swing.JFrame {
     }//GEN-LAST:event_equalActionPerformed
 
     private String bisectionSolve(String fx, double x_0, double x_1, double e) {
+        //Check if is Valid
+        if (eval(fx, x_0) * eval(fx, x_1) > 0){
+            return x_0 + " and " + x_1 + " doesn't bracket the root";
+        }
         //Get table model
         DefaultTableModel tableModel = (DefaultTableModel) iteration_table.getModel();
         double x_2 = 0.0;
