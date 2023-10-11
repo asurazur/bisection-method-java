@@ -11,6 +11,9 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
 import java.text.DecimalFormat;
 import javax.swing.table.DefaultTableModel;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 /*
  *
  * @author ARGANDA
@@ -88,6 +91,8 @@ public class bisection extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        export_button = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -257,7 +262,7 @@ public class bisection extends javax.swing.JFrame {
         result_entry.setEditable(false);
         result_entry.setBackground(new java.awt.Color(255, 255, 255));
         result_entry.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-        result_entry.setText("R = ");
+        result_entry.setText(" ");
         result_entry.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 result_entryActionPerformed(evt);
@@ -344,6 +349,22 @@ public class bisection extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("accuracy");
 
+        export_button.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        export_button.setText("Export");
+        export_button.setToolTipText("Export Table to Text File");
+        export_button.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        export_button.setBorderPainted(false);
+        export_button.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        export_button.setEnabled(false);
+        export_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                export_buttonActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Root");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -355,7 +376,9 @@ public class bisection extends javax.swing.JFrame {
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel1)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(iteration_label)
+                        .addGap(429, 429, 429))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -416,7 +439,8 @@ public class bisection extends javax.swing.JFrame {
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addComponent(e_entry, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
                                         .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                            .addComponent(equal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(equal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
@@ -424,8 +448,8 @@ public class bisection extends javax.swing.JFrame {
                                 .addContainerGap())
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(iteration_label)
-                                .addGap(426, 426, 426))))))
+                                .addComponent(export_button, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(394, 394, 394))))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -433,17 +457,17 @@ public class bisection extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(37, 37, 37)
-                        .addComponent(jLabel2))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(iteration_label)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(19, 19, 19)
                         .addComponent(jLabel1)))
                 .addGap(4, 4, 4)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(iteration_label)
-                    .addComponent(fx_entry, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(fx_entry, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -454,7 +478,9 @@ public class bisection extends javax.swing.JFrame {
                             .addComponent(x0_entry, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(x1_entry, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(e_entry, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                        .addGap(5, 5, 5)
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(result_entry, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -486,10 +512,15 @@ public class bisection extends javax.swing.JFrame {
                             .addComponent(raise, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cos, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(sin, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(clear, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(clear, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 488, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(equal, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 488, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(export_button, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(12, Short.MAX_VALUE))
         );
 
@@ -505,7 +536,7 @@ public class bisection extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 14, Short.MAX_VALUE))
+                .addGap(0, 5, Short.MAX_VALUE))
         );
 
         pack();
@@ -546,13 +577,16 @@ public class bisection extends javax.swing.JFrame {
             try{
                 String result_var = bisectionSolve(parse_func, x0, x1, accuracy);
                 result_entry.setText("R = " + result_var);
+                //enable the button
+                export_button.setEnabled(true);
+                
             } catch(Exception e){
-                result_entry.setText("R = " + e);
+                result_entry.setText(String.valueOf(e));
             }
         
         } catch (Exception exc){
             System.out.println("Convertion Error");
-            result_entry.setText("R = " + exc);
+            result_entry.setText(String.valueOf(exc));
         }
     }//GEN-LAST:event_equalActionPerformed
 
@@ -731,11 +765,57 @@ public class bisection extends javax.swing.JFrame {
         result_entry.setText("");
         //Get table model
         clearTable();
+        export_button.setEnabled(false);
     }//GEN-LAST:event_clearActionPerformed
 
     private void fx_entryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fx_entryActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_fx_entryActionPerformed
+    
+
+    public static String center(String text, int len){
+        int lpadding = (int)Math.floor((len - text.length())/2);
+        int rpadding = 180 - (lpadding + text.length());
+        String result = " ".repeat(lpadding) + text + " ".repeat(rpadding);
+        return result;
+    }
+    
+    private void export_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_export_buttonActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
+        int returnVal = fileChooser.showSaveDialog(this);
+
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File file = fileChooser.getSelectedFile();
+            try (FileWriter writer = new FileWriter(file)) {
+                // Headers (center-aligned)
+                writer.append(center("Bisection Method",180));
+                writer.append("\n");
+                writer.append(center("Iterations of:",180));
+                writer.append("\n");
+                String funx = fx_entry.getText();
+                String g1 = x0_entry.getText();
+                String g2 = x1_entry.getText();
+                String e = e_entry.getText();
+                String foreTxt = String.format("fx: %s,\ta: %s,\tb: %s,\te: %s", funx, g1, g2, e);
+                writer.append(center( foreTxt,180));
+                writer.append("\n\n");
+                writer.append(String.format("%15s%30s%30s%30s%30s%30s\n", "a", "b", "c", "f(a)", "f(b)", "f(c)"));
+                for (int row = 0; row < iteration_table.getRowCount(); row++) {
+                    for (int col = 0; col < iteration_table.getColumnCount(); col++) {
+                        String cellValue = String.valueOf(iteration_table.getValueAt(row, col));
+                        writer.append(String.format("%30s", cellValue + "|"));
+                    }
+                    writer.append("\n\n");
+                }
+                writer.append("Root = " + result_entry.getText());
+                writer.flush();
+                writer.close();
+                JOptionPane.showMessageDialog(this, "Table data exported to Text successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(this, "Error exporting to Text: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_export_buttonActionPerformed
         
     /**
      * @param args the command line arguments
@@ -800,6 +880,7 @@ public class bisection extends javax.swing.JFrame {
     private javax.swing.JTextField e_entry;
     private javax.swing.JButton eight;
     private javax.swing.JButton equal;
+    private javax.swing.JButton export_button;
     private javax.swing.JButton five;
     private javax.swing.JButton four;
     private javax.swing.JTextField fx_entry;
@@ -810,6 +891,7 @@ public class bisection extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton leftP;
